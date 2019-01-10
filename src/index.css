@@ -25,7 +25,12 @@ body {
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    min-height: 500px;
+    justify-content: space-between;
+    min-height: 540px;
+}
+
+.cost-list-bottom {
+    text-align: center;
 }
 
 .cost {

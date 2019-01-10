@@ -6,9 +6,8 @@ class CostsManager extends Component {
     state = {
         costTitle: '',
         costPrice: '',
-        costList: [
-            {id: '2019-01-10T11:30:17.725Z', title: 'qwefwqef', price: 20}
-        ]
+        costList: [],
+        sum: 0,
     };
 
     inputCostTitle = event => {
@@ -31,18 +30,21 @@ class CostsManager extends Component {
         if (this.state.costTitle && this.state.costPrice) {
             const date = new Date();
             const costList = [...this.state.costList];
-            const newConst = {
+            const oldSum = this.state.sum;
+            const sum = oldSum + this.state.costPrice;
+            const newCost = {
                 id: date.toISOString(),
                 title: this.state.costTitle,
                 price: this.state.costPrice
             };
 
-            costList.push(newConst);
+            costList.push(newCost);
 
             this.setState({
                 costList,
                 costTitle: '',
-                costPrice: ''
+                costPrice: '',
+                sum
             });
         } else {
             alert('All fields required!');
@@ -51,10 +53,17 @@ class CostsManager extends Component {
 
     removeCost = id => {
         const costList = [...this.state.costList];
+        const oldSum = this.state.sum;
         const costIndex = costList.findIndex(cost => cost.id === id);
+        const costPrice = costList[costIndex].price;
+        const sum = oldSum - costPrice;
 
         costList.splice(costIndex, 1);
-        this.setState({costList});
+
+        this.setState({
+            costList,
+            sum
+        });
     };
 
     render() {
@@ -70,6 +79,7 @@ class CostsManager extends Component {
                 <CostList
                     list={this.state.costList}
                     remove={this.removeCost}
+                    totalSpent={this.state.sum}
                 />
             </div>
         )
