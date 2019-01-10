@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import CostAdd from "../../components/CostAdd/CostAdd";
 import CostList from "../../components/CostList/CostList";
+import CostChart from "../../components/CostChart/CostChart";
 
 const CATEGORIES = [
-    {id: 1, name: 'Entertainment'},
-    {id: 2, name: 'Car'},
-    {id: 3, name: 'Food'}
+    {id: 1, name: 'Entertainment', color: 'brown'},
+    {id: 2, name: 'Car', color: 'darkcyan'},
+    {id: 3, name: 'Food', color: 'orange'}
 ];
 
 class CostsManager extends Component {
@@ -97,6 +98,7 @@ class CostsManager extends Component {
                     remove={this.removeCost}
                     totalSpent={this.state.sum}
                 />
+                <CostChart/>
             </div>
         )
     }
