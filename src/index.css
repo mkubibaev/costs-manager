@@ -25,6 +25,7 @@ body {
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
+    min-height: 500px;
 }
 
 .cost {

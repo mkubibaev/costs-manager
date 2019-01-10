@@ -4,11 +4,12 @@ import Cost from "./Cost/Cost";
 const CostList = props => {
     return (
         <div className="cost-list">
-            {props.list.map((cost, index) => (
+            {props.list.map((cost) => (
                 <Cost
-                    key={index}
+                    key={cost.id}
                     title={cost.title}
                     price={cost.price}
+                    remove={() => props.remove(cost.id)}
                 />
             ))}
         </div>

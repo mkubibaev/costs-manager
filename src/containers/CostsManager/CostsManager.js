@@ -5,10 +5,9 @@ import CostList from "../../components/CostList/CostList";
 class CostsManager extends Component {
     state = {
         costTitle: '',
-        costPrice: 0,
+        costPrice: '',
         costList: [
-            {title: 'qwefwqef', price: 20},
-            {title: 'dfqwefwqef', price: 40}
+            {id: '2019-01-10T11:30:17.725Z', title: 'qwefwqef', price: 20}
         ]
     };
 
@@ -23,15 +22,17 @@ class CostsManager extends Component {
         if (costPriceNum) {
             this.setState({costPrice: costPriceNum});
         } else {
-            this.setState({costPrice: 0})
+            this.setState({costPrice: ''})
         }
 
     };
 
     addCost = () => {
-        if (this.state.costTitle && this.state.costPrice > 0) {
+        if (this.state.costTitle && this.state.costPrice) {
+            const date = new Date();
             const costList = [...this.state.costList];
             const newConst = {
+                id: date.toISOString(),
                 title: this.state.costTitle,
                 price: this.state.costPrice
             };
@@ -41,25 +42,35 @@ class CostsManager extends Component {
             this.setState({
                 costList,
                 costTitle: '',
-                costPrice: 0
+                costPrice: ''
             });
         } else {
             alert('All fields required!');
         }
+    };
 
+    removeCost = id => {
+        const costList = [...this.state.costList];
+        const costIndex = costList.findIndex(cost => cost.id === id);
 
-
+        costList.splice(costIndex, 1);
+        this.setState({costList});
     };
 
     render() {
         return (
             <div className="container">
                 <CostAdd
-                    inputTitle={(event) => this.inputCostTitle(event)}
-                    inputPrice={(event) => this.inputCostPrice(event)}
+                    currentTitle={this.state.costTitle}
+                    currentPrice={this.state.costPrice}
+                    onInputTitle={(event) => this.inputCostTitle(event)}
+                    onInputPrice={(event) => this.inputCostPrice(event)}
                     addCost={this.addCost}
                 />
-                <CostList list={this.state.costList}/>
+                <CostList
+                    list={this.state.costList}
+                    remove={this.removeCost}
+                />
             </div>
         )
     }
