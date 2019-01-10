@@ -10,6 +10,7 @@ const CostList = props => {
                         key={cost.id}
                         title={cost.title}
                         price={cost.price}
+                        category={cost.category}
                         remove={() => props.remove(cost.id)}
                     />
                 ))}

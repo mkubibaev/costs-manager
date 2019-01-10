@@ -5,6 +5,7 @@ const Cost = props => {
         <div className="cost">
             <span>{props.title}</span>
             <div>
+                <span>{props.category}</span>
                 <span>{props.price} KGS</span>
                 <button onClick={props.remove}>x</button>
             </div>
